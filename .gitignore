@@ -1,24 +1,71 @@
-# Logs
-logs
+# 📝 General Logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# ⚡ Node.js
+node_modules/
+npm-cache/
+.pnpm-debug.log*
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# 🚀 Build & Output Files
+dist/
+dist-ssr/
+.out/
+.next/
+.vite/
+.vitepress/
+.cache/
+temp/
+
+# 🎨 Editors & IDE Configurations
+.vscode/
+!.vscode/extensions.json  # Keep VS Code recommended extensions
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# 🖥️ OS-Specific Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+*.orig
+
+# 🧪 Testing & Coverage
+coverage/
+*.lcov
+jest-cache/
+jest-stare/
+jest-html-reporters-*
+.vitest/
+test-results/
+
+# 🚨 Jest Snapshots (Optional: Ignore if they are auto-generated)
+__tests__/__snapshots__/
+
+# 🔒 Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+
+# 📌 TypeScript
+*.tsbuildinfo
+
+# 📖 Storybook
+.storybook/out/
+.storybook-static/
+
+# 🐳 Docker
+docker-compose.override.yml
+
+# 📂 Miscellaneous
+node-repl-history
+yarn-error.log
+npm-debug.log
+*.bak
