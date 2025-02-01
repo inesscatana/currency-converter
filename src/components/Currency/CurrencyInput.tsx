@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { debounce } from 'lodash';
 import { useCurrencyRates } from '../../hooks/useCurrencyRates';
 import ExchangeRatesList from '../ExchangesRates/ExchangeRatesList';
@@ -9,22 +9,20 @@ import CurrencySelector from './CurrencySelector';
 export default function CurrencyInput() {
   const [amount, setAmount] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
-  const [showLoading, setShowLoading] = useState(false);
 
   /**
    * 🕒 Debounced function to update the input value
    */
-  const debouncedAmount = useMemo(
-    () =>
-      debounce((value: string) => {
-        setAmount(formatToLocaleString(value));
-      }, 200),
+  const debouncedAmount = useCallback(
+    debounce((value: string) => {
+      setAmount(formatToLocaleString(value));
+    }, 200),
     []
   );
 
   useEffect(() => {
     return () => {
-      debouncedAmount.cancel();
+      debouncedAmount.cancel(); // Cleanup debounce on unmount
     };
   }, [debouncedAmount]);
 
@@ -36,19 +34,6 @@ export default function CurrencyInput() {
     isLoading,
     isError,
   } = useCurrencyRates(selectedCurrency);
-
-  useEffect(() => {
-    if (isLoading) {
-      setShowLoading(true);
-      const timer = setTimeout(() => {
-        setShowLoading(false);
-      }, 500);
-
-      return () => clearTimeout(timer);
-    } else {
-      setShowLoading(false);
-    }
-  }, [isLoading]);
 
   return (
     <div className="flex flex-col items-center w-full max-w-lg">
@@ -73,14 +58,11 @@ export default function CurrencyInput() {
       </div>
 
       {/* Loader while fetching exchange rates */}
-      {showLoading && (
+      {isLoading ? (
         <p className="text-light-gray text-center mt-4 text-lg animate-pulse">
           Loading rates...
         </p>
-      )}
-
-      {/* Exchange Rates List */}
-      {!showLoading && (
+      ) : (
         <ExchangeRatesList
           rates={exchangeRates}
           amount={amount}
