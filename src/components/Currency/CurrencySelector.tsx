@@ -57,7 +57,7 @@ export default function CurrencySelector({
             alt={selectedOptionData?.id}
             className="w-6 h-6 sm:w-5 sm:h-5 rounded-full"
           />
-          <span className="text-gray-700 font-medium text-lg sm:text-sm">
+          <span className="text-dark-gray font-medium text-lg sm:text-sm">
             {currency}
           </span>
         </div>
@@ -85,7 +85,7 @@ export default function CurrencySelector({
                     alt={curr.id}
                     className="w-6 h-6 sm:w-5 sm:h-5 rounded-full"
                   />
-                  <span className="ml-2 text-gray-700 text-lg sm:text-sm">
+                  <span className="ml-2 text-dark-gray text-lg sm:text-sm">
                     {curr.id}
                   </span>
                 </button>

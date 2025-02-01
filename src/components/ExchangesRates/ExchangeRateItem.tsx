@@ -22,7 +22,7 @@ const ExchangeRateItem = ({
   return (
     <li className="flex justify-between items-center px-6 sm:px-4">
       {/* Amount */}
-      <span className="text-gray-900 font-semibold text-2xl leading-7 tracking-tight min-w-[7rem] sm:min-w-[6rem] text-left">
+      <span className="text-gray font-semibold text-2xl leading-7 tracking-tight min-w-[7rem] sm:min-w-[6rem] text-left">
         {calculatedRate}
       </span>
 
@@ -33,7 +33,7 @@ const ExchangeRateItem = ({
           alt={currency}
           className="w-6 h-6 sm:w-5 sm:h-5 rounded-full"
         />
-        <span className="text-gray-700 font-semibold text-lg sm:text-sm leading-6">
+        <span className="text-gray font-semibold text-lg sm:text-sm leading-6">
           {currency}
         </span>
       </div>

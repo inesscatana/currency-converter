@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { debounce } from 'lodash';
 import { useCurrencyRates } from '../../hooks/useCurrencyRates';
 import ExchangeRatesList from '../ExchangesRates/ExchangeRatesList';
@@ -9,21 +9,19 @@ import CurrencySelector from './CurrencySelector';
 export default function CurrencyInput() {
   const [amount, setAmount] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
+  const [showLoading, setShowLoading] = useState(false);
 
   /**
    * 🕒 Debounced function to update the input value
-   * - Prevents excessive API calls by delaying updates by 300ms
-   * - Uses `useCallback` to persist across re-renders
    */
-  const debouncedAmount = useCallback(
-    debounce((value: string) => {
-      const formattedValue = formatToLocaleString(value);
-      setAmount(formattedValue);
-    }, 300),
+  const debouncedAmount = useMemo(
+    () =>
+      debounce((value: string) => {
+        setAmount(formatToLocaleString(value));
+      }, 200),
     []
   );
 
-  // Cleanup debounce on unmount
   useEffect(() => {
     return () => {
       debouncedAmount.cancel();
@@ -39,6 +37,19 @@ export default function CurrencyInput() {
     isError,
   } = useCurrencyRates(selectedCurrency);
 
+  useEffect(() => {
+    if (isLoading) {
+      setShowLoading(true);
+      const timer = setTimeout(() => {
+        setShowLoading(false);
+      }, 500);
+
+      return () => clearTimeout(timer);
+    } else {
+      setShowLoading(false);
+    }
+  }, [isLoading]);
+
   return (
     <div className="flex flex-col items-center w-full max-w-lg">
       {/* Currency Input Field */}
@@ -48,7 +59,7 @@ export default function CurrencyInput() {
           value={amount}
           onChange={(e) => debouncedAmount(e.target.value)}
           placeholder="0.00"
-          className="w-full bg-transparent text-gray-600 text-3xl sm:text-2xl font-semibold outline-none tracking-tight pr-[7.5rem] rounded-lg"
+          className="w-full bg-transparent text-gray text-3xl sm:text-2xl font-semibold outline-none tracking-tight pr-[7.5rem] rounded-lg"
         />
 
         {/* Currency Selector Dropdown */}
@@ -62,14 +73,14 @@ export default function CurrencyInput() {
       </div>
 
       {/* Loader while fetching exchange rates */}
-      {isLoading && (
-        <p className="text-gray-500 text-center mt-4 text-lg">
+      {showLoading && (
+        <p className="text-light-gray text-center mt-4 text-lg animate-pulse">
           Loading rates...
         </p>
       )}
 
-      {/* Exchange Rates List - Renders only when data is available */}
-      {!isLoading && (
+      {/* Exchange Rates List */}
+      {!showLoading && (
         <ExchangeRatesList
           rates={exchangeRates}
           amount={amount}

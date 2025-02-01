@@ -1,1 +1,34 @@
 @import 'tailwindcss';
+
+@font-face {
+  font-family: 'Proxima Nova, Arial, Helvetica, sans-serif';
+  src:
+    local('Proxima Nova'),
+    url('/assets/fonts/Proxima-Nova-Regular.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@theme {
+  --color-dark-gray: #091135;
+  --color-light-gray: #94a2b0;
+  --color-gray: #3c4a5a;
+}
+
+@layer base {
+  body {
+    @apply text-[16px] font-normal bg-white;
+    font-family: 'Proxima Nova', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+
+  h1 {
+    color: --color-dark-gray;
+    font-weight: 600;
+  }
+}

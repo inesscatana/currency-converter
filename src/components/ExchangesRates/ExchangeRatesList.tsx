@@ -26,7 +26,9 @@ export default function ExchangeRatesList({
 
   if (isLoading) {
     return (
-      <p className="text-gray-500 text-center mt-4 text-lg">Loading rates...</p>
+      <p className="text-light-gray text-center mt-4 text-lg">
+        Loading rates...
+      </p>
     );
   }
 
@@ -40,7 +42,7 @@ export default function ExchangeRatesList({
 
   if (!amount) {
     return (
-      <p className="text-gray-500 text-center mt-4 text-lg">
+      <p className="text-light-gray text-center mt-4 text-lg">
         Enter an amount to check the rates.
       </p>
     );
