@@ -1,4 +1,4 @@
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import CurrencyInput from './components/Currency/CurrencyInput';
 
 function App() {

@@ -1,6 +1,13 @@
+import UpholdLogo from '../../assets/icons/uphold-logo.svg';
 export default function Header() {
   return (
-    <div className="max-w-[42rem] text-center">
+    <div className="max-w-[42rem] text-center flex flex-col items-center">
+      <img
+        src={UpholdLogo}
+        alt="Uphold Logo"
+        className="w-24 h-24 sm:w-32 sm:h-32"
+      />
+
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
         Currency Converter
       </h1>
